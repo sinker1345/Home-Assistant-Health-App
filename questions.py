@@ -1,44 +1,47 @@
 import json
 import os
 
-FILENAME = "people_answers.json"
+FILENAME = "people.json"
 
 # 1. Load existing data
 if os.path.exists(FILENAME):
     with open(FILENAME, "r") as file:
         try:
-            all_people_data = json.load(file)
+            people_file = json.load(file)
         except json.JSONDecodeError:
-            all_people_data = {}
+            people_file = {}
 else:
-    all_people_data = {}
+    people_file = {}
 
 # Ask for the name and protect against overwriting and integar input
 while True:
-    person_name = input("Enter the person's name: ")
+    name = input("Enter the your name: ")
     
     # Check if name is blank
-    if not person_name:
+    if not name:
         print("Name cannot be empty. Please try again.")
         continue  
     # Check if the name already exists as a section key
-    if person_name in all_people_data:
-        print(f"⚠️ Error: A section for '{person_name}' already exists! Choose a unique name or add a last name.")
+    if name in people_file:
+        print(f"⚠️ Error: A section for '{name}' already exists! Choose a unique name or add a last name.")
     else:
-    # Check if name field is an integer, sorry all you people who are named using numbers. 
-        if person_name.isdigit():
+        # Check if name field is an integer, sorry all you people who are named using numbers. 
+        if name.isdigit():
             print(f"Name cannot be a number. Please try again.")
         else:
-            person_name = person_name.strip().lower()
+            name = name.strip().lower()
             break
+
 # Ask for Age and protect against invalid input
 while True:
     try:
         user_input = input("1. How old are you? ")
         age = int(user_input)
-        break # Exit only when a valid integer is provided
+        break
     except ValueError:
         print("Error: That was not a whole number. Please try again.\n Input your age as a whole number round up or down if needed. For example, if you are 39.5 years old, input 40 or 39.\n")
+
+# Parse the biological sex input and protect against invalid input, while formatting it to letters because  I am lazy and dont want to address the whole name.
 while True:
     try:
         user_input = input("2. What is your biological sex? (male/female): ")
@@ -55,22 +58,18 @@ while True:
         
     except ValueError:
         print("Error: Please enter a valid option.")
-    # Convert to m/f because im lazy and dont want to adress the whole name
 
-
-# 3. Gather the answers for this unique person
+# Place Questions into JSON format to be stored in the file.
 person_answers = {
     "age": age,
     "bio_sex": bio_sex,
-    "color": input("3. What is your favorite color? ").lower(),
-    "hobby": input("4. What is your favorite hobby? ").lower(),
-    "food": input("5. What is your favorite food? ").lower()
+    "weight": float(input("3. What is your weight? ")),
+    "height": float(input("4. What is your height? ")),
 }
 
-# 4. Nest and save the data
-all_people_data[person_name] = person_answers
-
+# Nest and Save the data to the JSON file
+people_file[name] = person_answers
 with open(FILENAME, "w") as file:
-    json.dump(all_people_data, file, indent=4)
+    json.dump(people_file, file, indent=4)
 
-print(f"\nSuccessfully saved data for '{person_name}' to {FILENAME}!")
+print(f"\nSuccessfully saved data for '{name}' to {FILENAME}!")
