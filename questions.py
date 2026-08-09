@@ -70,14 +70,14 @@ while True:
     except ValueError:
         print("Error: Please enter a valid number for weight.")
 
-# Parse and handle weight input
+# Parse and handle height input
 while True:
     try:
         user_input = input("What is your height in inches? ")
         height = float(user_input)
         break
     except ValueError:
-        print("Error: Please enter a valid number for weight.")
+        print("Error: Please enter a valid number for height.")
 
 # Place Questions into JSON format to be stored in the file.
 person_answers = {
