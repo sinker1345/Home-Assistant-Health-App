@@ -16,7 +16,6 @@ else:
 # Ask for the name and protect against overwriting and integar input
 while True:
     name = input("Enter the your name: ")
-    
     # Check if name is blank
     if not name:
         print("Name cannot be empty. Please try again.")
