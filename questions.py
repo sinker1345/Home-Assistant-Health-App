@@ -36,7 +36,7 @@ while True:
 # Ask for Age and protect against invalid input
 while True:
     try:
-        user_input = input("1. How old are you? ")
+        user_input = input("How old are you? ")
         age = int(user_input)
         break
     except ValueError:
@@ -46,7 +46,7 @@ while True:
 # Parse the biological sex input and protect against invalid input, while formatting it to letters because  I am lazy and dont want to address the whole name.
 while True:
     try:
-        user_input = input("2. What is your biological sex? (male/female): ")
+        user_input = input("What is your biological sex? (male/female): ")
         bio_sex = user_input.lower()
         if bio_sex in ["male", "female",]:
             if bio_sex == "male":
@@ -61,12 +61,30 @@ while True:
     except ValueError:
         print("Error: Please enter a valid option.")
 
+# Parse and handle weight input
+while True:
+    try:
+        user_input = input("What is your weight in pounds? ")
+        weight = float(user_input)
+        break
+    except ValueError:
+        print("Error: Please enter a valid number for weight.")
+
+# Parse and handle weight input
+while True:
+    try:
+        user_input = input("What is your height in inches? ")
+        height = float(user_input)
+        break
+    except ValueError:
+        print("Error: Please enter a valid number for weight.")
+
 # Place Questions into JSON format to be stored in the file.
 person_answers = {
     "age": age,
     "bio_sex": bio_sex,
-    "weight": float(input("3. What is your weight? ")),
-    "height": float(input("4. What is your height? ")),
+    "weight": weight,
+    "height": height,
 }
 
 # Nest and Save the data to the JSON file
