@@ -3,7 +3,7 @@ import os
 
 FILENAME = "people.json"
 
-# 1. Load existing data
+# Load existing data
 if os.path.exists(FILENAME):
     with open(FILENAME, "r") as file:
         try:
@@ -22,11 +22,13 @@ while True:
         continue  
     # Check if the name already exists as a section key
     if name in people_file:
-        print(f"⚠️ Error: A section for '{name}' already exists! Choose a unique name or add a last name.")
+        print(f"Error: A section for '{name}' already exists! Choose a unique name or add a last name.")
+        continue
     else:
         # Check if name field is an integer, sorry all you people who are named using numbers. 
         if name.isdigit():
-            print(f"Name cannot be a number. Please try again.")
+            print("Name cannot be a number. Please try again.")
+            continue
         else:
             name = name.strip().lower()
             break
@@ -38,7 +40,8 @@ while True:
         age = int(user_input)
         break
     except ValueError:
-        print("Error: That was not a whole number. Please try again.\n Input your age as a whole number round up or down if needed. For example, if you are 39.5 years old, input 40 or 39.\n")
+        print("Error: That was not a whole number. Please try again.\n Input your age as a whole number round up or down if needed. For example, if you are 39.5 years old, input 40 or 39.")
+        continue
 
 # Parse the biological sex input and protect against invalid input, while formatting it to letters because  I am lazy and dont want to address the whole name.
 while True:
@@ -54,7 +57,7 @@ while True:
                 break
         else:
             print("Error: Please enter 'male' or 'female'.")
-        
+            continue
     except ValueError:
         print("Error: Please enter a valid option.")
 
